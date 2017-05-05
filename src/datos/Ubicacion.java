@@ -1,4 +1,4 @@
-package weather;
+package datos;
 
 public class Ubicacion {
 	private String ciudad;

@@ -1,4 +1,4 @@
-package weather;
+package datos;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,12 +12,11 @@ public class Consulta {
 	private Astronomia astronomia;
 	private double latitud;
 	private double longitud;
-	private Actual actual;
 	private int tempActual;
 	private String descripcion;
 
 	public Consulta(Date fechaConsulta, ArrayList<ClimaDia> pronostico, Ubicacion ubicacion, Viento viento, Ambiente ambiente,
-			Astronomia astronomia, double latitud, double longitud, Actual actual, int tempActual, String descripcion) {
+			Astronomia astronomia, double latitud, double longitud, int tempActual, String descripcion) {
 		super();
 		this.fechaConsulta = fechaConsulta;
 		this.pronostico = pronostico;
@@ -27,18 +26,10 @@ public class Consulta {
 		this.astronomia = astronomia;
 		this.latitud = latitud;
 		this.longitud = longitud;
-		this.actual = actual;
 		this.tempActual = tempActual;
 		this.descripcion = descripcion;
 	}
 
-	public Actual getActual() {
-		return actual;
-	}
-
-	public void setActual(Actual actual) {
-		this.actual = actual;
-	}
 
 	public Date getFechaConsulta() {
 		return fechaConsulta;
