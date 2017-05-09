@@ -10,9 +10,8 @@ public class ClimaDia {
 	private int max;
 	private int min;
 	private String descripcion;
-	private int temperatura;
 	
-	public ClimaDia(int codigo, Date fecha, int temperatura, String dia, int max, int min, String descripcion) {
+	public ClimaDia(int codigo, Date fecha, String dia, int max, int min, String descripcion) {
 		super();
 		this.codigo = codigo;
 		this.fecha = fecha;
@@ -20,15 +19,6 @@ public class ClimaDia {
 		this.max = max;
 		this.min = min;
 		this.descripcion = descripcion;
-		this.temperatura = temperatura;
-	}
-	
-	public int getTemperatura() {
-		return temperatura;
-	}
-
-	public void setTemperatura(int temperatura) {
-		this.temperatura = temperatura;
 	}
 
 	public int getCodigo() {

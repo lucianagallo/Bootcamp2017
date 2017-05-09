@@ -12,14 +12,14 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException, SQLException {
 
-		Date fechaConsulta = new Date();
-		int tempActual = 36;
-		String descripcion = "Nublado";
 		MyDataAccess conexion = new MyDataAccess();
-
+		// Ubicacion
 		Ubicacion ubicacion = new Ubicacion("Nome", "United States", " AK");
+		// Viento
 		Viento viento = new Viento(37, 158, 4);
+		// Ambiente
 		Ambiente ambiente = new Ambiente(79, 1006.0, 0, 16.0);
+		// Astronomia
 		Astronomia astronomia = new Astronomia("6:45 am", "11:15 pm");
 
 		double latitud = 64.499474;
@@ -27,27 +27,43 @@ public class Main {
 
 		ArrayList<ClimaDia> pronostico = new ArrayList<ClimaDia>();
 
-		SimpleDateFormat formatoDelTexto2 = new SimpleDateFormat("dd-mm-yyyy");
+		// Clima dia
+		SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-mm-yyyy");
 		String strFecha2 = "27-04-2017";
-		Date fecha2 = formatoDelTexto2.parse(strFecha2);
+		Date fecha2 = formatoDelTexto.parse(strFecha2);
 
-		ClimaDia dia1 = new ClimaDia(34, fecha2, 38, "Jue", 38, 27, "Parcialmente nublado");
-
+		ClimaDia dia1 = new ClimaDia(81, fecha2, "Jue", 38, 27, "Parcialmente nublado");
 		String strFecha3 = "28-04-2017";
-		Date fecha3 = formatoDelTexto2.parse(strFecha3);
-
-		ClimaDia dia2 = new ClimaDia(28, fecha3, 37, "Vie", 38, 30, "Nublado");
-
-		conexion.insertarClimaDia(dia1);
-		conexion.insertarClimaDia(dia2);
+		Date fecha3 = formatoDelTexto.parse(strFecha3);
+		ClimaDia dia2 = new ClimaDia(82, fecha3, "Vie", 37, 30, "Nublado");
 
 		pronostico.add(dia1);
 		pronostico.add(dia2);
 
-		// Consulta consulta = new Consulta(fechaConsulta, pronostico,
-		// ubicacion, viento, ambiente, astronomia, latitud,
-		// longitud, tempActual, descripcion);
+		// Condicion
+		String strFecha4 = "26-04-2017";
+		Date fecha4 = formatoDelTexto.parse(strFecha4);
 
+		Condicion condicion = new Condicion(30, 28, "Nublado", fecha4, ubicacion, viento, ambiente, astronomia);
+		// Consulta
+		Date fechaConsulta = new Date();
+
+		Consulta consulta = new Consulta(fechaConsulta, pronostico, condicion, latitud, longitud);
+		
+		//INSERT
+		conexion.insertarClimaDia(dia1);
+		conexion.insertarClimaDia(dia2);
+		conexion.insertarAmbiente(ambiente);
+		conexion.insertarAstronomia(astronomia);
+		conexion.insertarUbicacion(ubicacion);
+		conexion.insertarViento(viento);
+		conexion.insertarCondicion(condicion, ubicacion, ambiente, astronomia, viento);
+		conexion.insertConsulta(consulta, condicion);
+		conexion.insertarConsultaClimaDia(consulta);
+		
+		//SELECT
+		System.out.print(conexion.mostrarConsulta());
+		System.out.print(conexion.mostrarCondicion());
 	}
 
 }

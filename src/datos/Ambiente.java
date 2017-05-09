@@ -7,7 +7,6 @@ public class Ambiente {
 	private double visibilidad;
 	
 	public Ambiente(int humedad, double presion, int indiceUv, double visibilidad) {
-		super();
 		this.humedad = humedad;
 		this.presion = presion;
 		this.visibilidad = visibilidad;
