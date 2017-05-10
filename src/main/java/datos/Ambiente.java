@@ -1,4 +1,4 @@
-package datos;
+package main.java.datos;
 
 public class Ambiente {
 	private int humedad;

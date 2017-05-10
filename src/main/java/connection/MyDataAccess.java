@@ -1,4 +1,4 @@
-package connection;
+package main.java.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,13 +9,13 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import datos.Ambiente;
-import datos.Astronomia;
-import datos.ClimaDia;
-import datos.Condicion;
-import datos.Consulta;
-import datos.Ubicacion;
-import datos.Viento;
+import main.java.datos.Ambiente;
+import main.java.datos.Astronomia;
+import main.java.datos.ClimaDia;
+import main.java.datos.Condicion;
+import main.java.datos.Consulta;
+import main.java.datos.Ubicacion;
+import main.java.datos.Viento;
 
 public class MyDataAccess {
 
@@ -26,7 +26,15 @@ public class MyDataAccess {
 	static String url = "jdbc:mysql://localhost/" + db;
 	private PreparedStatement prInsertar;
 
-	public MyDataAccess() {
+	private static MyDataAccess instance;
+
+	public static MyDataAccess getInstance() {
+		if (instance == null)
+			instance = new MyDataAccess();
+		return instance;
+	}
+
+	private MyDataAccess() {
 		try {
 			Class.forName("com.mysql.jdbc.Connection");
 			con = (Connection) DriverManager.getConnection(url, usuario, pass);
