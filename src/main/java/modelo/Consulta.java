@@ -1,4 +1,4 @@
-package main.java.datos;
+package main.java.modelo;
 
 import java.util.ArrayList;
 import java.util.Date;

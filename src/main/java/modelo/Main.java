@@ -1,4 +1,4 @@
-package main.java.datos;
+package main.java.modelo;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,6 +13,7 @@ public class Main {
 	public static void main(String[] args) throws ParseException, SQLException {
 
 		MyDataAccess conexion = MyDataAccess.getInstance();
+		conexion.createTables();
 		
 		// Ubicacion
 		Ubicacion ubicacion = new Ubicacion("Nome", "United States", " AK");
@@ -32,12 +33,14 @@ public class Main {
 		SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-mm-yyyy");
 		String strFecha2 = "27-04-2017";
 		Date fecha2 = formatoDelTexto.parse(strFecha2);
-
-		ClimaDia dia1 = new ClimaDia(81, fecha2, "Jue", 38, 27, "Parcialmente nublado");
+		int cod=85;
+		ClimaDia dia1 = new ClimaDia(cod, fecha2, "Jue", 38, 27, "Parcialmente nublado");
 		String strFecha3 = "28-04-2017";
 		Date fecha3 = formatoDelTexto.parse(strFecha3);
-		ClimaDia dia2 = new ClimaDia(82, fecha3, "Vie", 37, 30, "Nublado");
-
+		cod++;
+		ClimaDia dia2 = new ClimaDia(cod, fecha3, "Vie", 37, 30, "Nublado");
+		cod++;
+		
 		pronostico.add(dia1);
 		pronostico.add(dia2);
 

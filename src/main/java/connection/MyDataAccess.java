@@ -9,21 +9,22 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import main.java.datos.Ambiente;
-import main.java.datos.Astronomia;
-import main.java.datos.ClimaDia;
-import main.java.datos.Condicion;
-import main.java.datos.Consulta;
-import main.java.datos.Ubicacion;
-import main.java.datos.Viento;
+import main.java.modelo.Ambiente;
+import main.java.modelo.Astronomia;
+import main.java.modelo.ClimaDia;
+import main.java.modelo.Condicion;
+import main.java.modelo.Consulta;
+import main.java.modelo.Ubicacion;
+import main.java.modelo.Viento;
 
 public class MyDataAccess {
 
-	private String usuario = "root";
-	private String pass = "1234";
+	private String usuario = "";
+	private String pass = "";
 	private Connection con = null;
-	private static String db = "clima";
-	static String url = "jdbc:mysql://localhost/" + db;
+	private String server = "org.h2.Driver";
+	static String url = "jdbc:h2:mem:clima;DB_CLOSE_DELAY=-1";
+
 	private PreparedStatement prInsertar;
 
 	private static MyDataAccess instance;
@@ -36,9 +37,8 @@ public class MyDataAccess {
 
 	private MyDataAccess() {
 		try {
-			Class.forName("com.mysql.jdbc.Connection");
-			con = (Connection) DriverManager.getConnection(url, usuario, pass);
-
+			Class.forName(server);
+			con = DriverManager.getConnection(url, usuario, pass);
 			if (con != null)
 				System.out.print("Conexion exitosa" + "\n");
 
@@ -47,6 +47,68 @@ public class MyDataAccess {
 		} catch (ClassNotFoundException e) {
 			System.out.print(e);
 		}
+	}
+
+	public void createTables() throws SQLException {
+		String createAmbiente = "CREATE TABLE ambiente(" + "idambiente int(11) NOT NULL AUTO_INCREMENT,"
+				+ "humedad int(11) DEFAULT NULL," + "presion double DEFAULT NULL," + "indiceUV int(11) DEFAULT NULL,"
+				+ "visibilidad double DEFAULT NULL," + "PRIMARY KEY (idambiente))";
+		PreparedStatement cps = con.prepareStatement(createAmbiente);
+		cps.executeUpdate();
+		cps.close();
+
+		String createAstronomia = "CREATE TABLE astronomia(idastronomia integer NOT NULL AUTO_INCREMENT,"
+				+ "amanecer text,atardecer text, PRIMARY KEY(idastronomia))";
+		cps = con.prepareStatement(createAstronomia);
+		cps.executeUpdate();
+		cps.close();
+
+		String createClimaDia = "CREATE TABLE climadia (codigo int(11) NOT NULL,fecha date DEFAULT NULL,"
+				+ "dia tinytext, minima int(11) DEFAULT NULL, maxima int(11) DEFAULT NULL, descripcion tinytext, PRIMARY KEY (codigo));";
+		cps = con.prepareStatement(createClimaDia);
+		cps.executeUpdate();
+		cps.close();
+
+		String createUbicacion = "CREATE TABLE ubicacion (" + "idUbicacion int(11) NOT NULL AUTO_INCREMENT,"
+				+ "ciudad tinytext NOT NULL," + "pais tinytext," + "region tinytext," + "PRIMARY KEY (idUbicacion));";
+		cps = con.prepareStatement(createUbicacion);
+		cps.executeUpdate();
+		cps.close();
+
+		String createViento = "CREATE TABLE viento (" + "idviento int(11) NOT NULL AUTO_INCREMENT,"
+				+ "temperatura int(11) DEFAULT NULL," + "velocidad int(11) DEFAULT NULL,"
+				+ "direccion int(11) DEFAULT NULL," + "PRIMARY KEY (idviento));";
+		cps = con.prepareStatement(createViento);
+		cps.executeUpdate();
+		cps.close();
+
+		String createCondicion = "CREATE TABLE condicion (" + "idcondicion int(11) NOT NULL AUTO_INCREMENT,"
+				+ "codigo int(11) DEFAULT NULL," + "temperatura int(11) DEFAULT NULL," + "dia date DEFAULT NULL,"
+				+ "descripcion text," + "idUbicacion int(11) DEFAULT NULL," + "idAmbiente int(11) DEFAULT NULL,"
+				+ "idAstronomia int(11) DEFAULT NULL," + "idViento int(11) DEFAULT NULL," + "PRIMARY KEY (idcondicion),"
+				+ "CONSTRAINT ambiente FOREIGN KEY (idAmbiente) REFERENCES ambiente (idambiente) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+				+ "CONSTRAINT astronomia FOREIGN KEY (idAstronomia) REFERENCES astronomia (idastronomia) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+				+ "CONSTRAINT viento FOREIGN KEY (idViento) REFERENCES viento (idviento) ON DELETE NO ACTION ON UPDATE NO ACTION);";
+		cps = con.prepareStatement(createCondicion);
+		cps.executeUpdate();
+		cps.close();
+
+		String createConsulta = "CREATE TABLE consulta (" + "idconsulta int(11) NOT NULL AUTO_INCREMENT,"
+				+ "fechaConsulta date DEFAULT NULL," + "latitud double DEFAULT NULL," + "longitud double DEFAULT NULL,"
+				+ "idCondicion int(11) DEFAULT NULL," + "PRIMARY KEY (idconsulta),"
+				+ "CONSTRAINT condicion FOREIGN KEY (idCondicion) REFERENCES condicion (idcondicion) ON DELETE NO ACTION ON UPDATE NO ACTION);";
+		cps = con.prepareStatement(createConsulta);
+		cps.executeUpdate();
+		cps.close();
+
+		String createClimaDiaConsulta = "CREATE TABLE climadia_consulta (" + "idConsulta int(11) NOT NULL,"
+				+ "idClimaDia int(11) NOT NULL," + "PRIMARY KEY (idConsulta,idClimaDia),"
+				+ "CONSTRAINT climaDia FOREIGN KEY (idClimaDia) REFERENCES climadia (codigo) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+				+ "CONSTRAINT consulta FOREIGN KEY (idConsulta) REFERENCES consulta (idconsulta) ON DELETE NO ACTION ON UPDATE NO ACTION);";
+		cps = con.prepareStatement(createClimaDiaConsulta);
+		cps.executeUpdate();
+		cps.close();
+
 	}
 
 	public ResultSet query(String query) {
@@ -101,7 +163,6 @@ public class MyDataAccess {
 		prInsertar.setString(1, ast.getAmanecer());
 		prInsertar.setString(2, ast.getAtardecer());
 		prInsertar.executeUpdate();
-
 	}
 
 	public void insertarViento(Viento v) throws SQLException {
@@ -167,7 +228,8 @@ public class MyDataAccess {
 
 	public String mostrarConsulta() throws SQLException {
 		String s = "";
-		ResultSet rs = prInsertar.executeQuery("SELECT * FROM consulta");
+		PreparedStatement selectPreparedStatement = con.prepareStatement("SELECT * FROM consulta");
+		ResultSet rs = selectPreparedStatement.executeQuery();
 		while (rs.next()) {
 			s = "fecha=  " + rs.getObject("fechaConsulta") + "  |  latitud=  " + rs.getObject("latitud")
 					+ "  |  longitud=  " + rs.getObject("longitud") + "\n";
@@ -178,9 +240,12 @@ public class MyDataAccess {
 	public String mostrarConsulta(Consulta c) throws SQLException {
 		String s = "";
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		ResultSet rs = prInsertar.executeQuery(
-				"SELECT * FROM consulta WHERE fechaconsulta =" + f.format(c.getFechaConsulta()) + " and latitud="
-						+ String.valueOf(c.getLatitud()) + "and longitud=" + String.valueOf(c.getLongitud()));
+
+		String query = "SELECT * FROM consulta WHERE fechaconsulta =" + f.format(c.getFechaConsulta()) + " and latitud="
+				+ String.valueOf(c.getLatitud()) + "and longitud=" + String.valueOf(c.getLongitud());
+		PreparedStatement selectPreparedStatement = con.prepareStatement(query);
+		ResultSet rs = selectPreparedStatement.executeQuery();
+
 		while (rs.next()) {
 			s = "fecha=  " + rs.getObject("fechaConsulta") + "  |  latitud=  " + rs.getObject("latitud")
 					+ "  |  longitud=  " + rs.getObject("longitud") + "\n";
@@ -192,7 +257,9 @@ public class MyDataAccess {
 
 	public String mostrarCondicion() throws SQLException {
 		String s = "";
-		ResultSet rs = prInsertar.executeQuery("SELECT * FROM condicion");
+		PreparedStatement selectPreparedStatement = con.prepareStatement("SELECT * FROM condicion");
+		ResultSet rs = selectPreparedStatement.executeQuery();
+
 		while (rs.next()) {
 			s = "codigo=  " + rs.getObject("codigo") + "  |  temperatura=  " + rs.getObject("temperatura")
 					+ "  |  fecha=  " + rs.getObject("dia") + "  |  descripcion=  " + rs.getObject("descripcion")
