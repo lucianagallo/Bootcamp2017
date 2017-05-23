@@ -1,9 +1,9 @@
-package main.java.modelo;
+package main.java.entity;
 
 import java.util.Date;
 
 public class ClimaDia {
-	
+	private int id;
 	private int codigo;
 	private Date fecha;
 	private String dia;
@@ -11,6 +11,9 @@ public class ClimaDia {
 	private int min;
 	private String descripcion;
 	
+	public ClimaDia(){
+		
+	}
 	public ClimaDia(int codigo, Date fecha, String dia, int max, int min, String descripcion) {
 		super();
 		this.codigo = codigo;
@@ -56,6 +59,12 @@ public class ClimaDia {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 

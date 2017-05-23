@@ -13,7 +13,7 @@ public class MyDataAccessTest {
 
 	@Before
 	public void setUp() {
-		conexion = MyDataAccess.getInstance();
+		conexion = new MyDataAccess();
 	}
 
 	@Test

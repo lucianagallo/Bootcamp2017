@@ -1,12 +1,13 @@
-package main.java.modelo;
+package main.java.entity;
 
 public class Viento {
+	private int id;
 	private int temperatura;
 	private int velocidad;
 	private int direccion;
 	
+	public Viento(){}
 	public Viento(int temperatura, int velocidad, int direccion) {
-		super();
 		this.temperatura = temperatura;
 		this.velocidad = velocidad;
 		this.direccion = direccion;
@@ -28,6 +29,12 @@ public class Viento {
 	}
 	public void setDireccion(int direccion) {
 		this.direccion = direccion;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

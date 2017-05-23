@@ -1,8 +1,9 @@
-package main.java.modelo;
+package main.java.entity;
 
 import java.util.Date;
 
 public class Condicion {
+	private int id;
 	private int codigo;
 	private int temperatura;
 	private String descripcion;
@@ -11,6 +12,8 @@ public class Condicion {
 	private Viento viento;
 	private Ambiente ambiente;
 	private Astronomia astronomia;
+	
+	public Condicion(){}
 		
 	public Condicion(int codigo, int temperatura, String descripcion, Date dia, Ubicacion ubicacion, Viento viento,
 			Ambiente ambiente, Astronomia astronomia) {
@@ -80,6 +83,14 @@ public class Condicion {
 	}
 	public void setDia(Date dia) {
 		this.dia = dia;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

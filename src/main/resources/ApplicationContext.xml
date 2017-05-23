@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<context:annotation-config />
+
+	<bean id="mda" class="main.java.connection.MyDataAccess">
+		<property name="usuario" value="" />
+		<property name="pass" value="" />
+		<property name="url" value="jdbc:h2:mem:clima;DB_CLOSE_DELAY=-1" />
+		<property name="server" value="org.h2.Driver" />
+	</bean>
+	<bean id="ambientedao" class="dao.AmbienteDAO"></bean>
+	<bean id="astronomiadao" class="dao.AstronomiaDAO"></bean>
+	<bean id="climadiadao" class="dao.ClimaDiaDAO"></bean>
+	<bean id="condiciondao" class="dao.CondicionDAO"></bean>
+	<bean id="consultadao" class="dao.ConsultaDAO"></bean>
+	<bean id="ubicaciondao" class="dao.UbicacionDAO"></bean>
+	<bean id="vientodao" class="dao.VientoDAO"></bean>
+	
+	
+	<context:component-scan base-package="dao" />
+	<context:component-scan base-package="main.java.connection" />
+	<context:component-scan base-package="main.java.entity" />
+</beans>

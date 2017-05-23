@@ -1,6 +1,7 @@
-package main.java.modelo;
+package main.java.entity;
 
 public class Ambiente {
+	private int id;
 	private int humedad;
 	private double presion;
 	private int indiceUv;
@@ -11,6 +12,8 @@ public class Ambiente {
 		this.presion = presion;
 		this.visibilidad = visibilidad;
 		this.indiceUv = indiceUv;
+	}
+	public Ambiente() {
 	}
 	public int getHumedad() {
 		return humedad;
@@ -35,6 +38,12 @@ public class Ambiente {
 	}
 	public void setIndiceUv(int indiceUv) {
 		this.indiceUv = indiceUv;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

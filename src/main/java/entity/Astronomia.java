@@ -1,11 +1,14 @@
-package main.java.modelo;
+package main.java.entity;
 
 public class Astronomia {
+	private int id;
 	private String amanecer;
 	private String atardecer;
 	
-	public Astronomia(String amanecer, String atardecer) {
-		super();
+	public Astronomia(){}
+	
+	public Astronomia(int id, String amanecer, String atardecer) {
+		this.id=id;
 		this.amanecer = amanecer;
 		this.atardecer = atardecer;
 	}
@@ -20,6 +23,14 @@ public class Astronomia {
 	}
 	public void setAtardecer(String atardecer) {
 		this.atardecer = atardecer;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	

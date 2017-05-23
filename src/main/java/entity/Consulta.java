@@ -1,14 +1,17 @@
-package main.java.modelo;
+package main.java.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Consulta {
+	private int id;
 	private Date fechaConsulta;
 	private ArrayList<ClimaDia> pronostico;
 	private Condicion condicion;
 	private double latitud;
 	private double longitud;
+	
+	public Consulta(){}
 
 	public Consulta(Date fechaConsulta, ArrayList<ClimaDia> pronostico, Condicion condicion, double latitud,
 			double longitud) {
@@ -57,6 +60,14 @@ public class Consulta {
 
 	public void setCondicion(Condicion condicion) {
 		this.condicion = condicion;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
