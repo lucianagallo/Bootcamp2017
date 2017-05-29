@@ -2,10 +2,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import main.java.connection.MyDataAccess;
 import main.java.entity.ClimaDia;
 
@@ -70,7 +72,22 @@ public class ClimaDiaDAO implements ClimaDAO {
 
 	@Override
 	public Object select(int id) {
-		// ObjectODO Auto-generated method stub
-		return null;
+		ClimaDia cd = new ClimaDia();
+		try {
+			ResultSet rs = prInsertar.executeQuery("SELECT * FROM CLIMADIA WHERE idClimaDia =" + id);
+
+			while (rs.next()) {
+				cd.setCodigo(rs.getInt("codigo"));
+				cd.setFecha(rs.getDate("fecha"));
+				cd.setDia(rs.getString("dia"));
+				cd.setMax(rs.getInt("max"));
+				cd.setMin(rs.getInt("min"));
+				cd.setDescripcion(rs.getString("descripcion"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cd;
 	}
 }

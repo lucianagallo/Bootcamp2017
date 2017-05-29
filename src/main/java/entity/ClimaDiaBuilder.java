@@ -16,37 +16,37 @@ public class ClimaDiaBuilder {
 		return this;
 	}
 
-	ClimaDiaBuilder withCodigo(int c) {
+	public ClimaDiaBuilder withCodigo(int c) {
 		codigo = c;
 		return this;
 	}
 
-	ClimaDiaBuilder withFecha(Date f) {
+	public ClimaDiaBuilder withFecha(Date f) {
 		fecha = f;
 		return this;
 	}
 
-	ClimaDiaBuilder withDia(String d) {
+	public ClimaDiaBuilder withDia(String d) {
 		dia = d;
 		return this;
 	}
 
-	ClimaDiaBuilder withMax(int m) {
+	public ClimaDiaBuilder withMax(int m) {
 		max = m;
 		return this;
 	}
 
-	ClimaDiaBuilder withMin(int m) {
+	public ClimaDiaBuilder withMin(int m) {
 		min = m;
 		return this;
 	}
 
-	ClimaDiaBuilder withDescripcion(String d) {
+	public ClimaDiaBuilder withDescripcion(String d) {
 		descripcion = d;
 		return this;
 	}
 
-	ClimaDia build() {
+	public ClimaDia build() {
 		ClimaDia cd = new ClimaDia();
 		cd.setId(this.id);
 		cd.setCodigo(this.codigo);
