@@ -1,4 +1,6 @@
-package dao;
+package main.java.dao;
+
+import java.util.List;
 
 public interface ClimaDAO {
 
@@ -9,4 +11,6 @@ public interface ClimaDAO {
 	void delete(Object o);
 
 	Object select(int id);
+
+	List<Object> selectAll();
 }

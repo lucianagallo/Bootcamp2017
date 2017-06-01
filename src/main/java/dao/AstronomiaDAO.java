@@ -1,40 +1,39 @@
-package dao;
+package main.java.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import main.java.connection.MyDataAccess;
-import main.java.entity.Ubicacion;
+import main.java.entity.Astronomia;
 
-public class UbicacionDAO implements ClimaDAO {
+public class AstronomiaDAO implements ClimaDAO {
 	private PreparedStatement prInsertar;
 	@Autowired
-	private MyDataAccess mda;
+	MyDataAccess mda;
 
 	@Override
 	public void insert(Object o) {
 		Connection con = mda.getConnection();
-		Ubicacion u = (Ubicacion) o;
+		Astronomia a = (Astronomia) o;
 		try {
 			prInsertar = con
-					.prepareStatement("INSERT INTO UBICACION (idUbicacion, ciudad,pais,region)" + "values(?,?,?,?)");
-			prInsertar.setInt(1, u.getId());
-			prInsertar.setString(2, u.getCiudad());
-			prInsertar.setString(3, u.getPais());
-			prInsertar.setString(4, u.getRegion());
+					.prepareStatement("INSERT INTO ASTRONOMIA (idAstronomia, amanecer, atardecer)" + "values(?,?,?)");
+			prInsertar.setInt(1, a.getId());
+			prInsertar.setString(2, a.getAmanecer());
+			prInsertar.setString(3, a.getAtardecer());
 			prInsertar.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
 	public void update(Object o) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -46,6 +45,12 @@ public class UbicacionDAO implements ClimaDAO {
 
 	@Override
 	public Object select(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> selectAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

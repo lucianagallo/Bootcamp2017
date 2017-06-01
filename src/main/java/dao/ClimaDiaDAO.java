@@ -1,10 +1,11 @@
-package dao;
+package main.java.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -89,5 +90,11 @@ public class ClimaDiaDAO implements ClimaDAO {
 		}
 
 		return cd;
+	}
+
+	@Override
+	public List<Object> selectAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

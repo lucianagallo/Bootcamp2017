@@ -6,27 +6,27 @@ public class UbicacionBuilder {
 	private String pais;
 	private String region;
 
-	UbicacionBuilder withId(int i) {
+	public UbicacionBuilder withId(int i) {
 		id = i;
 		return this;
 	}
 
-	UbicacionBuilder withCiudad(String c) {
+	public UbicacionBuilder withCiudad(String c) {
 		ciudad = c;
 		return this;
 	}
 
-	UbicacionBuilder withPais(String p) {
+	public UbicacionBuilder withPais(String p) {
 		pais = p;
 		return this;
 	}
 
-	UbicacionBuilder withRegion(String r) {
+	public UbicacionBuilder withRegion(String r) {
 		region = r;
 		return this;
 	}
 
-	Ubicacion build() {
+	public Ubicacion build() {
 		Ubicacion u = new Ubicacion();
 		u.setId(this.id);
 		u.setCiudad(this.ciudad);

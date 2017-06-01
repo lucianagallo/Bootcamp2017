@@ -17,18 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import dao.ClimaDiaDAO;
+import main.java.dao.ClimaDiaDAO;
 import main.java.entity.ClimaDia;
 import main.java.entity.ClimaDiaBuilder;
 
-@RestController("/clima")
+@RestController
+@RequestMapping(value="/clima")
 public class DiaController {
 
 	@Autowired
-	ClimaDiaDAO dao;
+	ClimaDiaDAO diaDao;	
 	private HttpServletResponse httpResponse;
 
-	@RequestMapping(value= "/dias", method = RequestMethod.GET)
+	@RequestMapping(value= "/dias", method = RequestMethod.GET, produces= "application/json")
     public ResponseEntity<List<ClimaDia>> getAllClimaDia() throws ParseException {
 		SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-mm-yyyy");
 		String strFecha1 = "27-04-2017";
@@ -41,6 +42,7 @@ public class DiaController {
         }
         return new ResponseEntity<List<ClimaDia>>(dias, HttpStatus.OK);
 	}
+
 	@RequestMapping(value= "/test", method = RequestMethod.GET)
 	public String test(){
 		return "OK";
@@ -51,7 +53,7 @@ public class DiaController {
 		if (cd == null)
 			httpResponse.sendError(HttpStatus.CONFLICT.value(), "Usuario no valido");
 		else {
-			dao.insert(cd);
+			diaDao.insert(cd);
 		}
 		return new ResponseEntity<ClimaDia>(cd, HttpStatus.OK);
 	}
@@ -61,7 +63,7 @@ public class DiaController {
 		if (cd == null)
 			httpResponse.sendError(HttpStatus.CONFLICT.value(), "Usuario no existente");
 		else {
-			dao.update(cd);
+			diaDao.update(cd);
 		}
 		return new ResponseEntity<ClimaDia>(cd, HttpStatus.OK);
 	}

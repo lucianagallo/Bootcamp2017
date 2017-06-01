@@ -1,9 +1,10 @@
-package dao;
+package main.java.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -74,5 +75,11 @@ public class VientoDAO implements ClimaDAO {
 		}
 
 		return v;
+	}
+
+	@Override
+	public List<Object> selectAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

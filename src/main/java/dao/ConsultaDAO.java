@@ -1,9 +1,10 @@
-package dao;
+package main.java.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,6 +50,12 @@ public class ConsultaDAO implements ClimaDAO {
 
 	@Override
 	public Object select(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> selectAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

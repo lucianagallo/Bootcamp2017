@@ -10,8 +10,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import dao.ClimaDAO;
 import main.java.connection.MyDataAccess;
+import main.java.dao.ClimaDAO;
 
 @Component
 public class Main {
@@ -82,7 +82,7 @@ public class Main {
 		dao.insert(viento);
 		// viento.setTemperatura(12);
 		// System.out.print(conexion.mostrarViento());
-		// dao.update(viento);
+		// main.java.dao.update(viento);
 		dao = (ClimaDAO) context.getBean("condiciondao");
 		;
 		dao.insert(condicion);
