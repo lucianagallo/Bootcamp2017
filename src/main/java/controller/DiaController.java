@@ -22,7 +22,7 @@ import main.java.entity.ClimaDia;
 import main.java.entity.ClimaDiaBuilder;
 
 @RestController
-@RequestMapping(value="/clima")
+@RequestMapping(value="clima")
 public class DiaController {
 
 	@Autowired
@@ -43,9 +43,9 @@ public class DiaController {
         return new ResponseEntity<List<ClimaDia>>(dias, HttpStatus.OK);
 	}
 
-	@RequestMapping(value= "/test", method = RequestMethod.GET)
-	public String test(){
-		return "OK";
+	@RequestMapping(value= "test", method = RequestMethod.GET)
+	public ResponseEntity<String> test(){
+	   return new ResponseEntity<String>("OK", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/savedia", method = RequestMethod.POST)

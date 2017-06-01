@@ -27,13 +27,13 @@
 	<context:component-scan base-package="main.java.dao" />
 	<context:component-scan base-package="main.java.connection" />
 	<context:component-scan base-package="main.java.entity" />
-	<context:component-scan base-package="main.java.client" />
+<!-- 	<context:component-scan base-package="main.java.client" /> -->
 
 
-	<jaxrs-client:client id="clienteYahooWeather"
-		serviceClass="main.java.client.ClienteYahooWeather" address="https://query.yahooapis.com">
-		<jaxrs-client:providers>
-			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
-		</jaxrs-client:providers>
-	</jaxrs-client:client>
+<!-- 	<jaxrs-client:client id="clienteYahooWeather" -->
+<!-- 		serviceClass="main.java.client.ClienteYahooWeather" address="https://query.yahooapis.com"> -->
+<!-- 		<jaxrs-client:providers> -->
+<!-- 			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" /> -->
+<!-- 		</jaxrs-client:providers> -->
+<!-- 	</jaxrs-client:client> -->
 </beans>
